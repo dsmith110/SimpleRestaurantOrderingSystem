@@ -36,16 +36,16 @@ public class MenuController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
             FakeMenuDB db = new FakeMenuDB();
             String[] fakeDB = db.getMenu();
             
-            request.setAttribute("steak", fakeDB[0]);
-            request.setAttribute("fish", fakeDB[1]);
-            request.setAttribute("chicken", fakeDB[2]);
+            request.setAttribute("menu", fakeDB);
 
             RequestDispatcher view =
                     request.getRequestDispatcher("/order.jsp");
             view.forward(request, response);
+            
         } finally {          
         }
     }

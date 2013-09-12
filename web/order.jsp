@@ -12,8 +12,14 @@
         <title>Order</title>
     </head>
     <body>
-        <p>${steak}</p>
-        <p>${fish}</p>
-        <p>${chicken}</p>
+        <form id="orderForm" name="orderForm" action="MenuController" method="GET">
+            <%
+                
+                <tr><td><input type='checkbox' name='item<%= i %>'/><%=menuItem[i]</td></tr>
+                
+            %>
+
+        <input class="button" type="Submit" value="Order">
+        </form>
     </body>
 </html>
