@@ -4,6 +4,10 @@
     Author     : dsmith110
 --%>
 
+<%@page import="java.text.NumberFormat"%>
+<%@page import="Model.MenuItem"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,14 +16,24 @@
         <title>Order</title>
     </head>
     <body>
-        <form id="orderForm" name="orderForm" action="MenuController" method="GET">
+        <form id="orderForm" name="orderForm" action="OrderController" method="GET">
+            <table>
             <%
+                NumberFormat nf = NumberFormat.getCurrencyInstance();
+                List<MenuItem> menu = (List<MenuItem>) request.getAttribute("menuItems");
+                int i = 0;
                 
-                <tr><td><input type='checkbox' name='item<%= i %>'/><%=menuItem[i]</td></tr>
-                
+                for (MenuItem m : menu) {
+                    out.println("<tr>");
+                    out.println("<td><input type='checkbox' name='menuItem" + i + "'/>" + m.getName() + "</td><td> " + nf.format(m.getPrice()) + "</td>");
+                    out.println("</tr>");
+                    i++;
+                }
             %>
-
-        <input class="button" type="Submit" value="Order">
+            <tr><td></td><td><input class="button" type="Submit" value="Order"></td></tr>
+            </table>
+        
+        
         </form>
     </body>
 </html>
