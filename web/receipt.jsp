@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
-        <title>Order</title>
+        <title>Receipt</title>
     </head>
     <body>
         <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>

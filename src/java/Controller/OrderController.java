@@ -68,7 +68,7 @@ public class OrderController extends HttpServlet {
             request.setAttribute("subtotal", nf.format(total + tax));
             
             RequestDispatcher view =
-                    request.getRequestDispatcher("/reciept.jsp");
+                    request.getRequestDispatcher("/receipt.jsp");
             view.forward(request, response);
         } finally {            
         }
