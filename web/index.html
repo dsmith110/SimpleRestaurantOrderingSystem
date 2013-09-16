@@ -3,10 +3,43 @@
     <head>
         <title>Dan's Restaurant</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script>
+            $("#slideshow > div:gt(0)").hide();
+
+            setInterval(function() { 
+            $('#slideshow > div:first')
+            .fadeOut(1000)
+            .next()
+            .fadeIn(1000)
+            .end()
+            .appendTo('#slideshow');
+            },  5000);
+        </script>
+
     </head>
+    
     <body>
         
-        <a href="MenuController">Order</a>
+        <table>
+            <tr>
+            <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
+            <td><a id="a" href="MenuController">Order</a></td>
+            </tr>
+        </table>
         
+        
+        <div id="slideshow">
+            <div>
+                <img id="image" src="ImageResources/tbone.gif">
+            </div>
+            <div>
+                <img id="image" src="ImageResources/chickenWaffles.gif">
+            </div>
+            <div>
+                <img id="image" src="ImageResources/salad.gif">
+            </div>
+        </div>
     </body>
 </html>

@@ -12,9 +12,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
         <title>Order</title>
     </head>
     <body>
+        <table>
+            <tr>
+            <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
+            <td><a id="a" href="index.html">Home</a></td>
+            </tr>
+        </table>
+        
+        <br/>
+            <p id="tab">Receipt</p>
+        
         <table>
         <%
             NumberFormat nf = NumberFormat.getCurrencyInstance();

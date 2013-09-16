@@ -12,7 +12,7 @@ public class FakeDatabase implements DatabaseStrategy<MenuItem>{
 
     public FakeDatabase() {
         menuItems.add(new MenuItem("16 oz T-bone Steak", 15.99));
-        menuItems.add(new MenuItem("Hand Battered Deep-Fried Chicken", 12.99));
+        menuItems.add(new MenuItem("Hand Battered Deep-Fried Chicken & Waffles", 12.99));
         menuItems.add(new MenuItem("Pan seared Tilapia", 11.99));
         menuItems.add(new MenuItem("Baked Potato w/ Sour Creme and Chives", 4.99));
         menuItems.add(new MenuItem("Garden Salad w/ Choice of Dressing", 5.99));

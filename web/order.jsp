@@ -13,10 +13,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
         <title>Order</title>
     </head>
     <body>
         <form id="orderForm" name="orderForm" action="OrderController" method="GET">
+            <table>
+                <tr>
+                    <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
+                    <td><a id="a" href="index.html">Home</a></td>
+                </tr>
+            </table>
+            <br/>
+            <p id="tab">Menu</p>
             <table>
             <%
                 NumberFormat nf = NumberFormat.getCurrencyInstance();
