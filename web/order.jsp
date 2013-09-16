@@ -16,17 +16,16 @@
         <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
         <title>Order</title>
     </head>
+    
     <body>
+        <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>
+        
         <form id="orderForm" name="orderForm" action="OrderController" method="GET">
+
             <table>
                 <tr>
-                    <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
-                    <td><a id="a" href="index.html">Home</a></td>
+                    <td id="italic">Menu</td><br/>
                 </tr>
-            </table>
-            <br/>
-            <p id="tab">Menu</p>
-            <table>
             <%
                 NumberFormat nf = NumberFormat.getCurrencyInstance();
                 List<MenuItem> menu = (List<MenuItem>) request.getAttribute("menuItems");
@@ -41,7 +40,8 @@
             %>
             <tr><td></td><td><input class="button" type="Submit" value="Order"></td></tr>
             </table>
-        
+
+            <a id="a" href="index.html">Home</a>   
         
         </form>
     </body>

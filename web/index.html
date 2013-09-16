@@ -6,29 +6,31 @@
         <link rel="stylesheet" type="text/css" href="CssResources/homeCss.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
         <script>
-            $("#slideshow > div:gt(0)").hide();
-
-            setInterval(function() { 
-            $('#slideshow > div:first')
+            $(function() {
+            $("#slideshow div:gt(0)").hide();
+ 
+            setInterval(function() {
+            $('#slideshow div:first')
             .fadeOut(1000)
             .next()
             .fadeIn(1000)
             .end()
             .appendTo('#slideshow');
-            },  5000);
+            }, 5000);
+            });
+            
         </script>
 
     </head>
     
     <body>
-        
-        <table>
-            <tr>
-            <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
-            <td><a id="a" href="MenuController">Order</a></td>
-            </tr>
-        </table>
-        
+            <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>
+            
+            <div id="center">
+                <form name="formOrder" action="MenuController">
+            <input type="submit" name="btnOrder" value="Order"/>
+                </form>
+            </div>
         
         <div id="slideshow">
             <div>
@@ -41,5 +43,7 @@
                 <img id="image" src="ImageResources/salad.gif">
             </div>
         </div>
+        <br/>
+        
     </body>
 </html>

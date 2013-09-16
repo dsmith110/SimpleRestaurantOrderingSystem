@@ -16,12 +16,7 @@
         <title>Order</title>
     </head>
     <body>
-        <table>
-            <tr>
-            <td><img src="ImageResources/dans-restaurant_logo.gif"/></td>
-            <td><a id="a" href="index.html">Home</a></td>
-            </tr>
-        </table>
+        <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>
         
         <br/>
             <p id="tab">Receipt</p>
@@ -47,5 +42,9 @@
             <tr><td></td><td><hr/></td></tr>
             <tr><td>Total: </td><td>${subtotal}</td></tr>
         </table>
+        
+        <br/>
+        <a id="a" href="index.html">Home</a> 
+        
     </body>
 </html>

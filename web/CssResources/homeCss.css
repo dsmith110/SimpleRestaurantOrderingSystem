@@ -6,22 +6,22 @@
         Purpose of the stylesheet follows.
 */
 
-#a {
-    text-decoration: none;
+#center {
+    text-align: center;
 }
 
 #image {
-    width: 500px;
-    height: 350px;
+    width: 550px;
+    height: 330px;
 }
 
 #slideshow { 
     margin: 10px auto; 
     position: relative; 
-    width: 1200px; 
-    height: 240px; 
+    width: 550px; 
+    height: 260px; 
     padding: 10px; 
-     
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 #slideshow > div { 
@@ -39,4 +39,16 @@
 
 #italic {
     font-style: italic;
+}
+
+img.center {
+    width: 180px;
+    height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+#a {
+    text-decoration: none;
 }
