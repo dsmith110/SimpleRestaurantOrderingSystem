@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -7,13 +8,14 @@ import java.util.List;
  * @author Dan Smith
  */
 public class MenuService {
-    private DatabaseStrategy menu;
+    private IMenuDAO menu;
 
-    public MenuService(DatabaseStrategy menu) {
-        this.menu = menu;
+    public MenuService() {
+        DBAccessor db = new DBGeneric();
+        menu = new MenuDAO(db);
     }
     
-    public List<MenuItem> getMenuItems() {
-        return menu.getMenuItems();
+    public List<MenuItem> getAllMenuItems() throws ClassNotFoundException, SQLException, Exception {
+        return menu.getAllMenuItems();
     }
 }
