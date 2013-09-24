@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.sql.SQLException;
@@ -13,12 +9,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author bit
+ * Class has access to low level database class.
+ * --------------------------------------------
+ * 1. Possible generic DAO, moving all the connection information to low level
+ *    DB object.
+ * 
+ * @author Dan Smith
  */
 public class MenuDAO implements IMenuDAO<MenuItem> {
     private static final String FIND_ALL_ITEMS =
             "SELECT * from item";
+    
+    private final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+    private final String URL = "jdbc:mysql://localhost:3306/menu";
+    private final String USERNAME = "root";
+    private final String PASSWORD = "admin";
+    
+    private final String ITEM_ID = "item_id";
+    private final String NAME = "name";
+    private final String PRICE = "price";
+    
     private DBAccessor db;
 
     public MenuDAO(DBAccessor db) {
@@ -46,12 +56,12 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
         for (Map m : rawData) {
             item = new MenuItem();
 
-            String id = m.get("item_id").toString();
+            String id = m.get(ITEM_ID).toString();
             item.setId(new Long(id));
-            String name = m.get("name").toString();
+            String name = m.get(NAME).toString();
             item.setName(name);
-            String deptId = m.get("price").toString();
-            item.setPrice(new Double(deptId));
+            String price = m.get(PRICE).toString();
+            item.setPrice(new Double(price));
 
             menu.add(item);
         }
@@ -62,9 +72,9 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     private void openLocalDbConnection() throws IllegalArgumentException, ClassNotFoundException, SQLException {
         try {
             // Each time you perform a new query you must re-open the connection
-            db.openConnection("com.mysql.jdbc.Driver", 
-                        "jdbc:mysql://localhost:3306/menu",
-                        "root", "admin");
+            db.openConnection(DRIVER_CLASS_NAME, 
+                        URL,
+                        USERNAME, PASSWORD);
         } catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException(ex.getMessage(), ex);
         } catch (ClassNotFoundException ex) {

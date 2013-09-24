@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.sql.Connection;
@@ -18,20 +14,37 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author bit
+ * Class used to access the database. Opens and closes the database 
+ * connection. Returns a list based on a SQL query string.
+ * ----------------------------------------------------------------
+ * 1. Needs to add methods for Create, Update, and Delete records.
+ * 2. Need to add a method for query by ID.
+ * 
+ * @author Dan Smith
  */
 public class DBGeneric implements DBAccessor {
+    private final String ERR_MSG = "Error: url is null or zero length!";
+    private final String EMPTY_STRING = "";
+    
+    /*
+     * Possible change later
+     * ---------------------
+    private final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+    private final String URL = "jdbc:mysql://localhost:3306/menu";
+    private final String USERNAME = "root";
+    private final String PASSWORD = "admin";
+    */
+    
     private Connection conn;
     
     @Override
     public void openConnection(String driverClassName, String url, String username, String password) throws IllegalArgumentException, ClassNotFoundException, SQLException {
-        String msg = "Error: url is null or zero length!";
+        
         if (url == null || url.length() == 0) {
-            throw new IllegalArgumentException(msg);
+            throw new IllegalArgumentException(ERR_MSG);
         }
-        username = (username == null) ? "" : username;
-        password = (password == null) ? "" : password;
+        username = (username == null) ? EMPTY_STRING : username;
+        password = (password == null) ? EMPTY_STRING : password;
         Class.forName(driverClassName);
         conn = DriverManager.getConnection(url, username, password);
     }

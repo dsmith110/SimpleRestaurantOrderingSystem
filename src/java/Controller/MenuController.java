@@ -4,14 +4,11 @@
  */
 package Controller;
 
-import Model.FakeDatabase;
-import Model.MenuDAO;
 import Model.MenuItem;
 import Model.MenuService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
