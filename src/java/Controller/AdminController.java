@@ -9,6 +9,7 @@ import Model.MenuService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author dsmith110
+ * @author bit
  */
-@WebServlet(name = "MenuController", urlPatterns = {"/MenuController"})
-public class MenuController extends HttpServlet {
+@WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
+public class AdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -41,29 +42,34 @@ public class MenuController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
             MenuService menu = new MenuService();
             List<MenuItem> menuItems = menu.getAllMenuItems();
-            
-            request.setAttribute("menuItems", menuItems);
-            
-            String temp = null;
-            
-            temp = request.getParameter("formOrder").toString();
-            RequestDispatcher view;
-            
-            if(temp.equals("admin")) {
-                view =
-                    request.getRequestDispatcher("/admin.jsp");
-            } else {
-                view =
-                    request.getRequestDispatcher("/order.jsp");
+            MenuItem selectedItem = new MenuItem();            
+
+            for (int i = 0; i < menuItems.size(); i++) {
+                Object obj = request.getParameter("menuItem" + i);
+                if (obj != null) {
+                    selectedItem = menuItems.get(i);
+                    break;
+
+                }
             }
-            
-            
+
+            selectedItem = menu.getItemById(Long.toString(selectedItem.getId()));
+
+            RequestDispatcher view = request.getRequestDispatcher("/modifyAdd.jsp");
+            if (selectedItem == null) {
+                request.setAttribute("selectedItem", "");
+                request.setAttribute("name", "");
+                request.setAttribute("price", "");
+            } else {
+                request.setAttribute("selectedItem", selectedItem);
+                request.setAttribute("name", selectedItem.getName());
+                request.setAttribute("price", selectedItem.getPrice());
+            }
+
             view.forward(request, response);
-            
-        } finally {          
+        } finally {            
         }
     }
 
@@ -83,11 +89,11 @@ public class MenuController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -106,11 +112,11 @@ public class MenuController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

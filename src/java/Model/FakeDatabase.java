@@ -3,6 +3,7 @@ package Model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Just a fake database I made for testing
@@ -37,6 +38,11 @@ public class FakeDatabase implements DBAccessor {
     @Override
     public List findRecords(String sqlString, boolean closeConnection) throws SQLException, Exception {
         return menuItems;
+    }
+
+    @Override
+    public Map getRecordByID(String table, String primaryKeyField, Object keyValue, boolean closeConnection) throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

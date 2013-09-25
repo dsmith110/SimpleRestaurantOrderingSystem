@@ -5,6 +5,15 @@
     Description:
         Purpose of the stylesheet follows.
 */
+table, td, th
+{
+border:1px solid green;
+}
+th
+{
+background-color:green;
+color:white;
+}
 
 #center {
     text-align: center;

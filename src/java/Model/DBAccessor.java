@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,4 +22,7 @@ public interface DBAccessor {
     
     public abstract List findRecords(String sqlString, boolean closeConnection) throws SQLException,
 			Exception;
+    
+    public abstract Map getRecordByID(String table, String primaryKeyField, Object keyValue, boolean closeConnection)
+	throws SQLException, Exception;
 }

@@ -14,6 +14,8 @@ import java.util.List;
 public interface IMenuDAO <T>{
     public abstract List<T> getAllMenuItems() throws ClassNotFoundException, SQLException, Exception;
     
+    public abstract MenuItem getItemByItemId(String id) throws SQLException, Exception;
+    
     public abstract void setDb(DBAccessor db);
     
     public abstract DBAccessor getDb();

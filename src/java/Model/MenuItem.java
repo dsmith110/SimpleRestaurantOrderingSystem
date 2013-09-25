@@ -40,6 +40,16 @@ public class MenuItem {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
+    }
     
     
+    
+    public static void main(String[] args) {
+        MenuItem test = new MenuItem();
+        System.out.println(test);
+    }
 }
