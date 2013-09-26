@@ -25,4 +25,7 @@ public interface DBAccessor {
     
     public abstract Map getRecordByID(String table, String primaryKeyField, Object keyValue, boolean closeConnection)
 	throws SQLException, Exception;
+    
+    public abstract int deleteRecords(String tableName, String whereField, Object whereValue, boolean closeConnection)
+	throws SQLException, Exception;
 }

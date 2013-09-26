@@ -17,7 +17,7 @@
     </head>
     <body>
         
-        <form id="orderForm" name="orderForm" action="AdminController" method="GET">
+        
             
             <p id="italic">Select item you want to modify</p><br/>
             
@@ -29,7 +29,12 @@
                 
                 for (MenuItem m : menu) {
                     out.println("<tr>");
-                    out.println("<td><input type='checkbox' name='menuItem" + i + "'/></td><td>" + m.getName() + "</td><td> " + (m.getPrice()) + "</td>");
+                    out.println("<td><input type='checkbox' name='menuItem" + i +
+                            "'/></td><td>" + m.getName() + "</td><td> " + 
+                            (m.getPrice()) + 
+                            "</td><td><input type='submit' value='Modify' action='adminController?action=modify&id='" + m.getId() + 
+                            "'></td><td><input type='submit' value='delete' action='DataControlleraction=delete&id='" + m.getId() 
+                            + "'></td>" );
                     out.println("</tr>");
                     i++;
                 }
@@ -38,17 +43,13 @@
             </table>
             
             <br/>
-            <form action="AdminController?id=modifyAdd">
-                <input class="button" type="Submit" value="Modify/Add"> 
-            </form>
             
-            <form action="AdminController?id=delete">
-                <input class="button" type="Submit" value="Delete">
-            </form>
+            <input class="button" type="Submit" value="Add" action="DataController">
+            
             <br/>
             <br/>
             <a id="a" href="index.html">Home</a>   
         
-        </form>
+        
     </body>
 </html>

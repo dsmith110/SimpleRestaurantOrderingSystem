@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * High level service class that knows nothing about but how to return a data to
  * the controller. 
  * -----------------------
- * Needs to implement Create, Update, and Delete records
+ * Needs to implement Create, Update(Done), and Delete records
  * @author Dan Smith
  */
 public class MenuService {
@@ -41,18 +41,21 @@ public class MenuService {
         return menu.getItemByItemId(id);
     }
     
-    
+    public int deleteItem(String id) throws SQLException, Exception {
+        return menu.deleteItem(id);
+    }
     
     public static void main(String[] args) {
         MenuDAO dao = new MenuDAO(new DBGeneric());
-        
-        MenuItem records = new MenuItem();
+        MenuService record = new MenuService();
+        int r = 0;
+        List<MenuItem> records = new ArrayList<MenuItem>();
         try {
             // My local server
             //dao.openLocalDbConnection();
             
-            //records = dao.getAllMenuItems();
-            records = dao.getItemByItemId("3");
+            records = dao.getAllMenuItems();
+//            r = record.deleteItem("6");
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -65,9 +68,10 @@ public class MenuService {
 
 
         System.out.println("Found records...\n");
-//        for (MenuItem i : records) {
-//            System.out.println(i);
-//        }
-        System.out.println(records);
+        System.out.println(r);
+        for (MenuItem i : records) {
+            System.out.println(i);
+        }
+        
     }
 }

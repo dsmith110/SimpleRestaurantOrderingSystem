@@ -9,7 +9,6 @@ import Model.MenuService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,10 +59,12 @@ public class AdminController extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/modifyAdd.jsp");
             if (selectedItem == null) {
                 request.setAttribute("selectedItem", "");
+                request.setAttribute("id", "");
                 request.setAttribute("name", "");
                 request.setAttribute("price", "");
             } else {
                 request.setAttribute("selectedItem", selectedItem);
+                request.setAttribute("id", selectedItem.getId());
                 request.setAttribute("name", selectedItem.getName());
                 request.setAttribute("price", selectedItem.getPrice());
             }

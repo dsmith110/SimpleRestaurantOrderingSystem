@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -149,9 +150,74 @@ public class DBGeneric implements DBAccessor {
 		return record;
 	}
     
+   
     
+    @Override
+    public int deleteRecords(String tableName, String whereField, Object whereValue, boolean closeConnection)
+	throws SQLException, Exception
+	{
+		PreparedStatement pstmt = null;
+		int recsDeleted = 0;
+
+		// do this in an excpetion handler so that we can depend on the
+		// finally clause to close the connection
+		try {
+			pstmt = buildDeleteStatement(conn,tableName,whereField);
+
+			// delete all records if whereField is null
+			if(whereField != null ) {
+				if(whereValue instanceof String){
+					pstmt.setString( 1,(String)whereValue );
+				} else if(whereValue instanceof Integer ){
+					pstmt.setInt( 1,((Integer)whereValue).intValue() );
+				} else if(whereValue instanceof Long ){
+					pstmt.setLong( 1,((Long)whereValue).longValue() );
+				} else if(whereValue instanceof Double ){
+					pstmt.setDouble( 1,((Double)whereValue).doubleValue() );
+				} else if(whereValue instanceof java.sql.Date ){
+					pstmt.setDate(1, (java.sql.Date)whereValue );
+				} else if(whereValue instanceof Boolean ){
+					pstmt.setBoolean(1, ((Boolean)whereValue).booleanValue() );
+				} else {
+					if(whereValue != null) pstmt.setObject(1, whereValue);
+				}
+			}
+
+			recsDeleted = pstmt.executeUpdate();
+
+		} catch (SQLException sqle) {
+			throw sqle;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			try {
+				pstmt.close();
+				if(closeConnection) conn.close();
+			} catch(SQLException e) {
+				throw e;
+			} // end try
+		} // end finally
+
+		return recsDeleted;
+	}
     
-    
+    private PreparedStatement buildDeleteStatement(Connection conn_loc, String tableName, String whereField)
+	throws SQLException {
+		final StringBuffer sql = new StringBuffer("DELETE FROM ");
+		sql.append(tableName);
+
+		// delete all records if whereField is null
+		if(whereField != null ) {
+			sql.append(" WHERE ");
+			(sql.append( whereField )).append(" = ?");
+                        
+                        
+		}
+
+		final String finalSQL=sql.toString();
+//		System.out.println(finalSQL);
+		return conn_loc.prepareStatement(finalSQL);
+	}
     
     
     
@@ -184,5 +250,7 @@ public class DBGeneric implements DBAccessor {
             Logger.getLogger(DBGeneric.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    
     
 }

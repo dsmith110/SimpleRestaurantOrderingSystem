@@ -12,9 +12,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        ${selectedItem}
-        <br>
-        <input type="text" value='${name}' size="35"></input><br>
-        <input type="text" value='${price}'></input>
+        
+        <table>
+            <tr>
+                <td>ID</td><td>${id}</td>
+            </tr>
+            <tr>
+                <td>Name</td><td><input type="text" value='${name}' size="35"></td>
+            </tr>
+            <tr>
+                <td>Price</td><td><input type="text" value='${price}'></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Modify"></td>
+            </tr>
+            
+        </table>
     </body>
 </html>

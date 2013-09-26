@@ -9,6 +9,7 @@ table, td, th
 {
 border:1px solid green;
 }
+
 th
 {
 background-color:green;
@@ -19,7 +20,7 @@ color:white;
     text-align: center;
 }
 
-#image {
+image {
     width: 550px;
     height: 330px;
 }

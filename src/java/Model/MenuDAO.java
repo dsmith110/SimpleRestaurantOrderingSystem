@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -134,6 +135,20 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
         //return record;
     }
     
+    @Override
+    public int deleteItem(String id) throws SQLException, Exception{
+        this.openLocalDbConnection();
+        int r = 0;
+        try {
+            r = db.deleteRecords("item", "item_id", id, true);
+        } catch (SQLException e1) {
+            throw new SQLException(e1.getMessage(), e1);
+
+        } catch (Exception e2) {
+            throw new Exception(e2.getMessage(), e2);
+        }
+        return r;
+    }
     
     
     
@@ -177,4 +192,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
 //        }
         System.out.println(records);
     }
+
+    
+
 }
