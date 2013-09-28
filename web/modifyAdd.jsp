@@ -17,10 +17,10 @@
         <table>
             ${item}
             <tr>
-                <td>ID</td><td><input type="text" id="itemId" name="id" value="${id} "size="35" readonly></td>
+                <td>ID</td><td><input type="text" id="itemId" name="id" value="${id}" readonly></td>
             </tr>
             <tr>
-                <td>Name</td><td><input type="text" id="itemName" name="name" value="${name}" size="35"></td>
+                <td>Name</td><td><input type="text" id="itemName" name="name" value="${name}"></td>
             </tr>
             <tr>
                 <td>Price</td><td><input type="text" id="itemPrice" name="price" value="${price}"></td>

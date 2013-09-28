@@ -169,7 +169,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
 
         try {
             // if the id is null, it's a new record, else it's an update
-            if (item.getId() == 0) {
+            if (item.getId() == 0L) {
                 db.insertRecord(
                         tableName, fieldNames,
                         fieldValues, true);

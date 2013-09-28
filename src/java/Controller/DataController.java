@@ -46,14 +46,16 @@ public class DataController extends HttpServlet {
         List<MenuItem> menuItems = new ArrayList<MenuItem>();
         MenuItem item = new MenuItem();
         try {
-            if (request.getParameter("id") != null) {
+            if (request.getParameter("id").equals("")) {
+                item.setId(0);
+            } else {
                 item.setId(Long.valueOf(request.getParameter("id")));
             }
+            
             item.setName(request.getParameter("name"));
             item.setPrice(Double.valueOf(request.getParameter("price")));
 
             menu.saveItem(item);
-            
             
             menuItems = menu.getAllMenuItems();
             request.setAttribute("menuItems", menuItems);
@@ -62,7 +64,7 @@ public class DataController extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("/admin.jsp");
             view.forward(request, response);
         } finally {            
-//            out.close();
+            out.close();
         }
     }
 
