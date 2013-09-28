@@ -18,6 +18,8 @@ public interface IMenuDAO <T>{
     
     public abstract int deleteItem(String id)throws SQLException, Exception;
     
+    public abstract void save(MenuItem item) throws SQLException, Exception;
+    
     public abstract void setDb(DBAccessor db);
     
     public abstract DBAccessor getDb();

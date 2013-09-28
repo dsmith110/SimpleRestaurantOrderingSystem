@@ -45,17 +45,24 @@ public class MenuService {
         return menu.deleteItem(id);
     }
     
+    public void saveItem(MenuItem item) throws SQLException, Exception {
+        menu.save(item);
+    }
+    
     public static void main(String[] args) {
         MenuDAO dao = new MenuDAO(new DBGeneric());
-        MenuService record = new MenuService();
-        int r = 0;
-        List<MenuItem> records = new ArrayList<MenuItem>();
+        MenuService records = new MenuService();
+        List<MenuItem> rec = new ArrayList<MenuItem>();
+        List<MenuItem> record = new ArrayList<MenuItem>();
+        MenuItem r = new MenuItem(3, "Some food", 14.99);
+        int anFnItem = 0;
         try {
             // My local server
             //dao.openLocalDbConnection();
-            
-            records = dao.getAllMenuItems();
-//            r = record.deleteItem("6");
+            records.saveItem(r);
+            record = dao.getAllMenuItems();
+//            anFnItem = records.deleteItem("0");
+            rec = dao.getAllMenuItems();
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -68,10 +75,15 @@ public class MenuService {
 
 
         System.out.println("Found records...\n");
-        System.out.println(r);
-        for (MenuItem i : records) {
+//        System.out.println(r);
+        for (MenuItem i : record) {
             System.out.println(i);
         }
-        
+        System.out.println("");
+        System.out.println("");
+        for (MenuItem i : rec) {
+            System.out.println(i);
+        }
+//        System.out.println(anFnItem);
     }
 }

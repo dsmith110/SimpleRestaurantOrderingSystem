@@ -25,27 +25,25 @@
                 
             <%
                 List<MenuItem> menu = (List<MenuItem>) request.getAttribute("menuItems");
-                int i = 0;
-                
+                                
                 for (MenuItem m : menu) {
                     out.println("<tr>");
-                    out.println("<td><input type='checkbox' name='menuItem" + i +
-                            "'/></td><td>" + m.getName() + "</td><td> " + 
+                    out.println("</td><td>" + m.getName() + "</td><td> " + 
                             (m.getPrice()) + 
-                            "</td><td><input type='submit' value='Modify' action='adminController?action=modify&id='" + m.getId() + 
-                            "'></td><td><input type='submit' value='delete' action='DataControlleraction=delete&id='" + m.getId() 
-                            + "'></td>" );
+                            "</td><td><a href='AdminController?formAction=modify&id=" + m.getId() + "'/>Modify</a>" +
+                            "</td><td><a href='AdminController?formAction=delete&id=" + m.getId() + "'/>Delete</a>" 
+                            + "</td>" );
                     out.println("</tr>");
-                    i++;
+                    
                 }
             %>
             
             </table>
             
             <br/>
+            <a href="AdminController?formAction=add">Add</a>
             
-            <input class="button" type="Submit" value="Add" action="DataController">
-            
+            <p>${row} row affected</p>
             <br/>
             <br/>
             <a id="a" href="index.html">Home</a>   

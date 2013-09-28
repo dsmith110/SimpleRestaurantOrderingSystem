@@ -41,34 +41,47 @@ public class AdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            RequestDispatcher view;
+
             MenuService menu = new MenuService();
-            List<MenuItem> menuItems = menu.getAllMenuItems();
-            MenuItem selectedItem = new MenuItem();            
 
-            for (int i = 0; i < menuItems.size(); i++) {
-                Object obj = request.getParameter("menuItem" + i);
-                if (obj != null) {
-                    selectedItem = menuItems.get(i);
-                    break;
+            MenuItem selectedItem = new MenuItem();
+            String id = null;
+            id = request.getParameter("id");
 
+            int row = 0;
+
+
+
+            String action = request.getParameter("formAction");
+
+            if (action.equals("delete")) {
+                row = menu.deleteItem(id);
+                request.setAttribute("row", row);
+                view = request.getRequestDispatcher("/admin.jsp");
+            } else if (action.equals("modify") || action.equals("add")) {
+                if (id != null) {
+                    selectedItem = menu.getItemById(id);
+                    request.setAttribute("item", selectedItem);
+                    request.setAttribute("id", selectedItem.getId());
+                    request.setAttribute("name", selectedItem.getName());
+                    request.setAttribute("price", selectedItem.getPrice());
                 }
-            }
-
-            selectedItem = menu.getItemById(Long.toString(selectedItem.getId()));
-
-            RequestDispatcher view = request.getRequestDispatcher("/modifyAdd.jsp");
-            if (selectedItem == null) {
-                request.setAttribute("selectedItem", "");
-                request.setAttribute("id", "");
-                request.setAttribute("name", "");
-                request.setAttribute("price", "");
+                view = request.getRequestDispatcher("/modifyAdd.jsp");
             } else {
-                request.setAttribute("selectedItem", selectedItem);
-                request.setAttribute("id", selectedItem.getId());
-                request.setAttribute("name", selectedItem.getName());
-                request.setAttribute("price", selectedItem.getPrice());
+                view = request.getRequestDispatcher("/admin.jsp");
             }
 
+
+            request.setAttribute("row", row);
+
+
+
+            List<MenuItem> menuItems = menu.getAllMenuItems();
+            request.setAttribute("menuItems", menuItems);
+
+//            view = request.getRequestDispatcher("/admin.jsp");
+            
             view.forward(request, response);
         } finally {            
         }

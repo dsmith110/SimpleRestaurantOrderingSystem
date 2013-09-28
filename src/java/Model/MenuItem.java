@@ -10,6 +10,11 @@ public class MenuItem {
     private double price;
 
     public MenuItem() {}
+
+    public MenuItem(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
     
     public MenuItem(long id, String name, double price) {
         this.id = id;

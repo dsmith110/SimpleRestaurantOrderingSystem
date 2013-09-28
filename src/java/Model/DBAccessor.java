@@ -28,4 +28,11 @@ public interface DBAccessor {
     
     public abstract int deleteRecords(String tableName, String whereField, Object whereValue, boolean closeConnection)
 	throws SQLException, Exception;
+    
+    public abstract boolean insertRecord(String tableName, List colDescriptors, List colValues, boolean closeConnection)
+	throws SQLException, Exception;
+    
+    public int updateRecords(String tableName, List colDescriptors, List colValues,
+			 String whereField, Object whereValue, boolean closeConnection)
+			 throws SQLException, Exception;
 }

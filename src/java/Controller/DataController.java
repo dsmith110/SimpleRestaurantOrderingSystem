@@ -4,8 +4,15 @@
  */
 package Controller;
 
+import Model.MenuItem;
+import Model.MenuService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,18 +38,31 @@ public class DataController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        MenuService menu = new MenuService();
+        List<MenuItem> menuItems = new ArrayList<MenuItem>();
+        MenuItem item = new MenuItem();
         try {
-            String action = request.getParameter("action").toString();
-            System.out.println(action);
-            if(action.equals("add")) {
-                RequestDispatcher view = request.getRequestDispatcher("/modifyAdd.jsp");
-                view.forward(request, response);
+            if (request.getParameter("id") != null) {
+                item.setId(Long.valueOf(request.getParameter("id")));
             }
+            item.setName(request.getParameter("name"));
+            item.setPrice(Double.valueOf(request.getParameter("price")));
+
+            menu.saveItem(item);
+            
+            
+            menuItems = menu.getAllMenuItems();
+            request.setAttribute("menuItems", menuItems);
+            
+            
+            RequestDispatcher view = request.getRequestDispatcher("/admin.jsp");
+            view.forward(request, response);
         } finally {            
-            out.close();
+//            out.close();
         }
     }
 
@@ -59,7 +79,13 @@ public class DataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -74,7 +100,13 @@ public class DataController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(DataController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

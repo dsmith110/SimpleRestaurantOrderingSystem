@@ -13,20 +13,23 @@
     </head>
     <body>
         
+        <form action="DataController">
         <table>
+            ${item}
             <tr>
-                <td>ID</td><td>${id}</td>
+                <td>ID</td><td><input type="text" id="itemId" name="id" value="${id} "size="35" readonly></td>
             </tr>
             <tr>
-                <td>Name</td><td><input type="text" value='${name}' size="35"></td>
+                <td>Name</td><td><input type="text" id="itemName" name="name" value="${name}" size="35"></td>
             </tr>
             <tr>
-                <td>Price</td><td><input type="text" value='${price}'></td>
+                <td>Price</td><td><input type="text" id="itemPrice" name="price" value="${price}"></td>
+                
             </tr>
             <tr>
-                <td><input type="submit" value="Modify"></td>
-            </tr>
-            
+                <td><input type="Submit" value="Save"></td>
+            </tr> 
         </table>
+        </form>
     </body>
 </html>

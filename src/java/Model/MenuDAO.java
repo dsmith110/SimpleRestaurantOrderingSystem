@@ -150,7 +150,41 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
         return r;
     }
     
-    
+    @Override
+    public void save(MenuItem item) throws SQLException, Exception {
+        this.openLocalDbConnection();
+        
+        String tableName = "item";
+        List<String> fieldNames =
+                new ArrayList<String>();
+        fieldNames.add("name");
+        fieldNames.add("price");
+        
+
+        List fieldValues =
+                new ArrayList();
+        fieldValues.add(item.getName());
+        fieldValues.add(item.getPrice());
+        
+
+        try {
+            // if the id is null, it's a new record, else it's an update
+            if (item.getId() == 0) {
+                db.insertRecord(
+                        tableName, fieldNames,
+                        fieldValues, true);
+            } else {
+                db.updateRecords(
+                        tableName, fieldNames,
+                        fieldValues, "item_id", item.getId(), true);
+            }
+        } catch (SQLException e1) {
+            throw new SQLException(e1.getMessage(), e1);
+
+        } catch (Exception e2) {
+            throw new Exception(e2.getMessage(), e2);
+        }
+    }
     
     
     
@@ -167,14 +201,17 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     
     public static void main(String[] args) {
         MenuDAO dao = new MenuDAO(new DBGeneric());
-        
-        MenuItem records = new MenuItem();
+        List<MenuItem> records = new ArrayList<MenuItem>();
+        List<MenuItem> r = new ArrayList<MenuItem>();
+        MenuItem record = new MenuItem("Sirloinssssssss Steak", 14.99);
         try {
             // My local server
             dao.openLocalDbConnection();
-            
-            //records = dao.getAllMenuItems();
-            records = dao.getItemByItemId("3");
+            dao.save(record);
+            records = dao.getAllMenuItems();
+//            record = dao.getItemByItemId("3");
+            record = dao.getItemByItemId("7");
+            r = dao.getAllMenuItems();
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -185,12 +222,17 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
             Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-        System.out.println("Found records...\n");
+        System.out.println(record);
+//        System.out.println("Found records...\n");
 //        for (MenuItem i : records) {
 //            System.out.println(i);
 //        }
-        System.out.println(records);
+//        System.out.println("");
+//        System.out.println("");
+//        for (MenuItem i : r) {
+//            System.out.println(i);
+//        }
+//        System.out.println(record);
     }
 
     
