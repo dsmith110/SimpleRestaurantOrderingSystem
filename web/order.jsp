@@ -18,7 +18,7 @@
     </head>
     
     <body>
-        <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>
+        <img class="logo" src="ImageResources/dans-restaurant_logo.gif"/>
         
         <form id="orderForm" name="orderForm" action="OrderController" method="GET">
 

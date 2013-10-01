@@ -16,7 +16,7 @@
         <title>Receipt</title>
     </head>
     <body>
-        <img class="center" src="ImageResources/dans-restaurant_logo.gif"/>
+        <img class="logo" src="ImageResources/dans-restaurant_logo.gif"/>
         
         <br/>
             <p id="tab">Receipt</p>
@@ -42,8 +42,10 @@
             <tr><td></td><td><hr/></td></tr>
             <tr><td>Total: </td><td>${subtotal}</td></tr>
         </table>
-        
+        <hr/>
         <br/>
+        <br/>
+        <p>If you have any questions regarding your order please call ${phone}</p>
         <a id="a" href="index.html">Home</a> 
         
     </body>

@@ -66,6 +66,10 @@ public class OrderController extends HttpServlet {
             double total = reciept.calcTotal(orderedItems);
             double tax = reciept.calcTax(orderedItems);
             
+            String phone = 
+                    this.getServletContext().getInitParameter("phone");
+            
+            request.setAttribute("phone", phone);
             request.setAttribute("total", nf.format(total));
             request.setAttribute("tax", nf.format(tax));
             request.setAttribute("gratuity", nf.format(reciept.calcGratuity(orderedItems)));
