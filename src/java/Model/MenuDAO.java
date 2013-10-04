@@ -32,6 +32,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     private final String PASSWORD = "admin";
     
     private final String ITEM_ID = "item_id";
+    private final String ITEM = "item";
     private final String NAME = "name";
     private final String PRICE = "price";
     
@@ -124,9 +125,9 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
             dto = new MenuItem();
             String itemId = m.get(ITEM_ID).toString();
             dto.setId(new Long(id));
-            String itemName = m.get("name").toString();
+            String itemName = m.get(NAME).toString();
             dto.setName(itemName);
-            String itemPrice = m.get("price").toString();
+            String itemPrice = m.get(PRICE).toString();
             dto.setPrice(Double.parseDouble(itemPrice));
             records.add(dto);
         }
@@ -140,7 +141,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
         this.openLocalDbConnection();
         int r = 0;
         try {
-            r = db.deleteRecords("item", "item_id", id, true);
+            r = db.deleteRecords(ITEM, ITEM_ID, id, true);
         } catch (SQLException e1) {
             throw new SQLException(e1.getMessage(), e1);
 
@@ -154,11 +155,11 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     public void save(MenuItem item) throws SQLException, Exception {
         this.openLocalDbConnection();
         
-        String tableName = "item";
+        String tableName = ITEM;
         List<String> fieldNames =
                 new ArrayList<String>();
-        fieldNames.add("name");
-        fieldNames.add("price");
+        fieldNames.add(NAME);
+        fieldNames.add(PRICE);
         
 
         List fieldValues =
@@ -176,7 +177,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
             } else {
                 db.updateRecords(
                         tableName, fieldNames,
-                        fieldValues, "item_id", item.getId(), true);
+                        fieldValues, ITEM_ID, item.getId(), true);
             }
         } catch (SQLException e1) {
             throw new SQLException(e1.getMessage(), e1);

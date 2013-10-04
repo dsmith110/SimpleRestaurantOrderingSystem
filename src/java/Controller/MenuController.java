@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,12 +41,13 @@ public class MenuController extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
         try {
             
             MenuService menu = new MenuService();
             List<MenuItem> menuItems = menu.getAllMenuItems();
             
-            request.setAttribute("menuItems", menuItems);
+            session.setAttribute("menuItems", menuItems);
             
             String temp = null;
             

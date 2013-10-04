@@ -28,7 +28,7 @@
                 </tr>
             <%
                 NumberFormat nf = NumberFormat.getCurrencyInstance();
-                List<MenuItem> menu = (List<MenuItem>) request.getAttribute("menuItems");
+                List<MenuItem> menu = (List<MenuItem>) session.getAttribute("menuItems");
                 int i = 0;
                 
                 for (MenuItem m : menu) {

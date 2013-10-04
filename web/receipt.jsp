@@ -24,7 +24,7 @@
         <table>
         <%
             NumberFormat nf = NumberFormat.getCurrencyInstance();
-            List<MenuItem> menu = (List<MenuItem>) request.getAttribute("order");
+            List<MenuItem> menu = (List<MenuItem>) session.getAttribute("order");
             
                 for (MenuItem m : menu) {
                     out.println("<tr>");

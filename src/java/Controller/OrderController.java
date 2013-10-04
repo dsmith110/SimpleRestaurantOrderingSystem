@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,6 +46,7 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
         try {
             NumberFormat nf = NumberFormat.getCurrencyInstance();
             MenuService menu = new MenuService();
@@ -59,7 +61,7 @@ public class OrderController extends HttpServlet {
                 }
             }
             
-            request.setAttribute("order", orderedItems);
+            session.setAttribute("order", orderedItems);
             
             
             Reciept reciept = new Reciept();
@@ -69,11 +71,11 @@ public class OrderController extends HttpServlet {
             String phone = 
                     this.getServletContext().getInitParameter("phone");
             
-            request.setAttribute("phone", phone);
-            request.setAttribute("total", nf.format(total));
-            request.setAttribute("tax", nf.format(tax));
-            request.setAttribute("gratuity", nf.format(reciept.calcGratuity(orderedItems)));
-            request.setAttribute("subtotal", nf.format(total + tax));
+            session.setAttribute("phone", phone);
+            session.setAttribute("total", nf.format(total));
+            session.setAttribute("tax", nf.format(tax));
+            session.setAttribute("gratuity", nf.format(reciept.calcGratuity(orderedItems)));
+            session.setAttribute("subtotal", nf.format(total + tax));
             
             RequestDispatcher view =
                     request.getRequestDispatcher("/receipt.jsp");
