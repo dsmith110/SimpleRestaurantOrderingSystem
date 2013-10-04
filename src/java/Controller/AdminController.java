@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,10 +41,19 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        String driverClassName = 
+                    this.getServletContext().getInitParameter("driver-class-name");
+        String url = 
+                    this.getServletContext().getInitParameter("url");
+        String username = 
+                    this.getServletContext().getInitParameter("username");
+        String password = 
+                    this.getServletContext().getInitParameter("password");
         try {
             RequestDispatcher view;
 
-            MenuService menu = new MenuService();
+            MenuService menu = new MenuService(driverClassName, url, username, password);
 
             MenuItem selectedItem = new MenuItem();
             String id = null;
@@ -57,15 +67,15 @@ public class AdminController extends HttpServlet {
 
             if (action.equals("delete")) {
                 row = menu.deleteItem(id);
-                request.setAttribute("row", row);
+                session.setAttribute("row", row);
                 view = request.getRequestDispatcher("/admin.jsp");
             } else if (action.equals("modify") || action.equals("add")) {
                 if (id != null) {
                     selectedItem = menu.getItemById(id);
-                    request.setAttribute("item", selectedItem);
-                    request.setAttribute("id", selectedItem.getId());
-                    request.setAttribute("name", selectedItem.getName());
-                    request.setAttribute("price", selectedItem.getPrice());
+                    session.setAttribute("item", selectedItem);
+                    session.setAttribute("id", selectedItem.getId());
+                    session.setAttribute("name", selectedItem.getName());
+                    session.setAttribute("price", selectedItem.getPrice());
                 }
                 view = request.getRequestDispatcher("/modifyAdd.jsp");
             } else {
@@ -73,12 +83,12 @@ public class AdminController extends HttpServlet {
             }
 
 
-            request.setAttribute("row", row);
+            session.setAttribute("row", row);
 
 
 
             List<MenuItem> menuItems = menu.getAllMenuItems();
-            request.setAttribute("menuItems", menuItems);
+            session.setAttribute("menuItems", menuItems);
 
 //            view = request.getRequestDispatcher("/admin.jsp");
             

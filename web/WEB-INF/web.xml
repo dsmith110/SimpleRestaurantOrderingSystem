@@ -26,6 +26,26 @@
     </servlet-mapping>
     
     <context-param>
+        <param-name>driver-class-name</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/menu</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>admin</param-value>
+    </context-param>
+    
+    <context-param>
         <param-name>phone</param-name>
         <param-value>414-555-6565</param-value>
     </context-param>

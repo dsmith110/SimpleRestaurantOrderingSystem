@@ -42,9 +42,17 @@ public class MenuController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
+        String driverClassName = 
+                    this.getServletContext().getInitParameter("driver-class-name");
+        String url = 
+                    this.getServletContext().getInitParameter("url");
+        String username = 
+                    this.getServletContext().getInitParameter("username");
+        String password = 
+                    this.getServletContext().getInitParameter("password");
         try {
             
-            MenuService menu = new MenuService();
+            MenuService menu = new MenuService(driverClassName, url, username, password);
             List<MenuItem> menuItems = menu.getAllMenuItems();
             
             session.setAttribute("menuItems", menuItems);

@@ -47,9 +47,17 @@ public class OrderController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
+        String driverClassName = 
+                    this.getServletContext().getInitParameter("driver-class-name");
+        String url = 
+                    this.getServletContext().getInitParameter("url");
+        String username = 
+                    this.getServletContext().getInitParameter("username");
+        String password = 
+                    this.getServletContext().getInitParameter("password");
         try {
             NumberFormat nf = NumberFormat.getCurrencyInstance();
-            MenuService menu = new MenuService();
+            MenuService menu = new MenuService(driverClassName, url, username, password);
             List<MenuItem> menuItems = menu.getAllMenuItems();
 
             List<MenuItem> orderedItems = new ArrayList<MenuItem>();

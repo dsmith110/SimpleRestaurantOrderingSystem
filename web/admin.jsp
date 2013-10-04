@@ -24,7 +24,7 @@
             <table class="tableBorder">
                 
             <%
-                List<MenuItem> menu = (List<MenuItem>) request.getAttribute("menuItems");
+                List<MenuItem> menu = (List<MenuItem>) session.getAttribute("menuItems");
                                 
                 for (MenuItem m : menu) {
                     out.println("<tr>");
@@ -43,7 +43,7 @@
             <br/>
             <a href="AdminController?formAction=add">Add</a>
             
-            <p>${row} row affected</p>
+            
             <br/>
             <br/>
             <a id="a" href="index.html">Home</a>   

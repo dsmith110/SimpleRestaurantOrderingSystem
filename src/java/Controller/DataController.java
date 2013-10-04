@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,8 +42,16 @@ public class DataController extends HttpServlet {
             throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        MenuService menu = new MenuService();
+        HttpSession session = request.getSession();
+        String driverClassName = 
+                    this.getServletContext().getInitParameter("driver-class-name");
+        String url = 
+                    this.getServletContext().getInitParameter("url");
+        String username = 
+                    this.getServletContext().getInitParameter("username");
+        String password = 
+                    this.getServletContext().getInitParameter("password");
+        MenuService menu = new MenuService(driverClassName, url, username, password);
         List<MenuItem> menuItems = new ArrayList<MenuItem>();
         MenuItem item = new MenuItem();
         try {
@@ -58,7 +67,7 @@ public class DataController extends HttpServlet {
             menu.saveItem(item);
             
             menuItems = menu.getAllMenuItems();
-            request.setAttribute("menuItems", menuItems);
+            session.setAttribute("menuItems", menuItems);
             
             
             RequestDispatcher view = request.getRequestDispatcher("/admin.jsp");

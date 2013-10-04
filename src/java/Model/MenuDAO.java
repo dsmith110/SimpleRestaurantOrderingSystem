@@ -26,10 +26,15 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
             + "WHERE item.item_id = ";
     
     
-    private final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/menu";
-    private final String USERNAME = "root";
-    private final String PASSWORD = "admin";
+//    private final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+//    private final String URL = "jdbc:mysql://localhost:3306/menu";
+//    private final String USERNAME = "root";
+//    private final String PASSWORD = "admin";
+    
+    private String driverClassName;
+    private String url;
+    private String username;
+    private String password;
     
     private final String ITEM_ID = "item_id";
     private final String ITEM = "item";
@@ -38,8 +43,12 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     
     private DBAccessor db;
 
-    public MenuDAO(DBAccessor db) {
+    public MenuDAO(DBAccessor db, String driverClassName, String url, String username, String password) {
         this.db = db;
+        this.driverClassName = driverClassName;
+        this.url = url;
+        this.username = username;
+        this.password = password;
     }
     
     @Override
@@ -79,9 +88,9 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     private void openLocalDbConnection() throws IllegalArgumentException, ClassNotFoundException, SQLException {
         try {
             // Each time you perform a new query you must re-open the connection
-            db.openConnection(DRIVER_CLASS_NAME, 
-                        URL,
-                        USERNAME, PASSWORD);
+            db.openConnection(driverClassName, 
+                        url,
+                        username, password);
         } catch (IllegalArgumentException ex) {
             throw new IllegalArgumentException(ex.getMessage(), ex);
         } catch (ClassNotFoundException ex) {
@@ -200,30 +209,30 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
     
     
     
-    public static void main(String[] args) {
-        MenuDAO dao = new MenuDAO(new DBGeneric());
-        List<MenuItem> records = new ArrayList<MenuItem>();
-        List<MenuItem> r = new ArrayList<MenuItem>();
-        MenuItem record = new MenuItem("Sirloinssssssss Steak", 14.99);
-        try {
-            // My local server
-            dao.openLocalDbConnection();
-            dao.save(record);
-            records = dao.getAllMenuItems();
-//            record = dao.getItemByItemId("3");
-            record = dao.getItemByItemId("7");
-            r = dao.getAllMenuItems();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//    public static void main(String[] args) {
+//        MenuDAO dao = new MenuDAO(new DBGeneric());
+//        List<MenuItem> records = new ArrayList<MenuItem>();
+//        List<MenuItem> r = new ArrayList<MenuItem>();
+//        MenuItem record = new MenuItem("Sirloinssssssss Steak", 14.99);
+//        try {
+//            // My local server
+//            dao.openLocalDbConnection();
+//            dao.save(record);
+//            records = dao.getAllMenuItems();
+////            record = dao.getItemByItemId("3");
+//            record = dao.getItemByItemId("7");
+//            r = dao.getAllMenuItems();
+//        } catch (IllegalArgumentException ex) {
+//            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(MenuDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
-        System.out.println(record);
+//        System.out.println(record);
 //        System.out.println("Found records...\n");
 //        for (MenuItem i : records) {
 //            System.out.println(i);
@@ -234,7 +243,7 @@ public class MenuDAO implements IMenuDAO<MenuItem> {
 //            System.out.println(i);
 //        }
 //        System.out.println(record);
-    }
+//    }
 
     
 
